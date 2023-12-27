@@ -4,10 +4,12 @@ using Microsoft.EntityFrameworkCore;
 Console.WriteLine("Hello, World!");
 public class ETicaretDbContext : DbContext
 {
+
     public DbSet<Urun> uruns { get; set; }
+    public DbSet<User> users { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer("Server=DESKTOP-S5SNUUO;Database=CodeFirstETicaretDb;Trusted_Connection=True;");
+        optionsBuilder.UseSqlServer("Server=DESKTOP-S5SNUUO;Database=CodeFirstETicaretDb;Trusted_Connection=True; TrustServerCertificate=True");
     }
 }
 
@@ -16,4 +18,9 @@ public class Urun
     public int Id { get; set; }
     public string UrunAdi { get; set; }
     public int MyProperty { get; set; }
+}
+public class User
+{
+    public int UserID { get; set; }
+    public string UserName { get; set; }
 }
