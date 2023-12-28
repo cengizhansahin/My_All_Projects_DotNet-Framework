@@ -48,13 +48,27 @@ CodeFirstECommerceContext c = new CodeFirstECommerceContext();
 //{
 //    Console.WriteLine($"ID: {item.ID}\tName: {item.ProductName}\tPrice: {item.Fiyat}");
 //}
-var urunler = c.Products.Where(p => p.Fiyat > 500 && p.ProductName.EndsWith("7")).OrderByDescending(x => x.Fiyat).ThenByDescending(x => x.ProductName).ToList();
-foreach (var item in urunler)
-{
-    Console.WriteLine($"ID: {item.ID}\tName: {item.ProductName}\tPrice: {item.Fiyat}");
-}
+//var urunler = c.Products.Where(p => p.Fiyat > 500 && p.ProductName.EndsWith("7")).OrderByDescending(x => x.Fiyat).ThenByDescending(x => x.ProductName).ToList();
+//foreach (var item in urunler)
+//{
+//    Console.WriteLine($"ID: {item.ID}\tName: {item.ProductName}\tPrice: {item.Fiyat}");
+//}
 #endregion
 #region Tekil Veri Getiren Sorgulamalar
+//Single, SingleOrDefault, FirstOrDefault, Find, Last, LastOrDefault
+//var urunx = c.Products.Single(x => x.ID > 60); //Birden çok element döndüreceği için hata olacaktır.
+//var urunx = c.Products.Single(x => x.ID > 20000); //Hiç eleman döndürmediği için hata döndürecektir.
+//var urunx = c.Products.Single(x => x.ID == 5);
+//var urunx = c.Products.SingleOrDefault(x => x.ID > 60); //Yine hata alacağız
+//var urunx = c.Products.Single(x => x.ID > 60000);//Null döner
+//var urunx = c.Products.First(x => x.ID > 60);
+//Console.WriteLine(urunx.ID);
+//var urunx = c.Products.First(x => x.ID > 20000);// hata ( Sequence contains no elements )
+//var urunx = c.Products.FirstOrDefault(x => x.ID > 60);
+//var x = await c.Products.FirstOrDefaultAsync(p => p.ID == 55);
+//Console.WriteLine(x.ProductName);
+//var nesne = c.Products.Find(55);
+//Console.WriteLine(nesne.ProductName);
 
 #endregion
 public class CodeFirstECommerceContext : DbContext
