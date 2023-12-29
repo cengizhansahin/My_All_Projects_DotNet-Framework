@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFCoreQuerying.Migrations
 {
     [DbContext(typeof(CodeFirstECommerceContext))]
-    [Migration("20231228162707_firstmig")]
-    partial class firstmig
+    [Migration("20231229183954_CreateDatabaseMig")]
+    partial class CreateDatabaseMig
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,7 +31,7 @@ namespace EFCoreQuerying.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
-                    b.Property<double>("Fiyat")
+                    b.Property<double>("Price")
                         .HasColumnType("float");
 
                     b.Property<string>("ProductName")
