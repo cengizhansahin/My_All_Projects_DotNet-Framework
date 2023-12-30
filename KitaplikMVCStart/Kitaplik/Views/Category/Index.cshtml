@@ -1,0 +1,23 @@
+﻿@model IEnumerable<Category>
+@{
+}
+
+<h1 class="text-center mb-3">Kategoriler Sayfası</h1>
+<table class="table table-bordered table-dark table-hover w-75 m-auto">
+    <a asp-controller="Category" asp-action="Create" class="btn btn-success">Create A New Category </a>
+    <thead>
+        <tr>
+            <th>Category Name</th>
+            <th>Category Display Order</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td width="50%">@item.Name</td>
+                <td width="50%">@item.DisplayOrder</td>
+            </tr>
+        }
+    </tbody>
+</table>
