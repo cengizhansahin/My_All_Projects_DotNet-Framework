@@ -6,18 +6,18 @@ using Microsoft.EntityFrameworkCore;
 //Console.WriteLine("Hello, World!");
 CodeFirstECommerceContext c = new CodeFirstECommerceContext();
 #region Veri Tabanına Data Ekleme ve Listeleme İşlmeleri
-//var p = 0;
-//for (int i = 1; i <= 1002; i++)
-//{
-//    p += 10;
-//    Product product = new()
-//    {
-//        ProductName = $"Ürün{i}",
-//        Price = p,
-//    };
-//    await c.Products.AddAsync(product);
-//}
-//await c.SaveChangesAsync();
+var p = 0;
+for (int i = 1; i <= 1002; i++)
+{
+    p += 10;
+    Product product = new()
+    {
+        ProductName = $"Ürün{i}",
+        Price = p,
+    };
+    await c.Products.AddAsync(product);
+}
+await c.SaveChangesAsync();
 
 // --> INumerable ile listeleme işlemi
 //List<Product> products = c.Products.ToList();
@@ -87,7 +87,7 @@ public class CodeFirstECommerceContext : DbContext
     public DbSet<Product> Products { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer("Server=DESKTOP-3CB3GKQ\\SQLEXPRESS;Database=CodeFirstECommerce;Trusted_Connection=True;TrustServerCertificate=True;");
+        optionsBuilder.UseSqlServer("Server=DESKTOP-S5SNUUO;Database=CodeFirstECommerce;Trusted_Connection=True;TrustServerCertificate=True;");
     }
 }
 public class Product
