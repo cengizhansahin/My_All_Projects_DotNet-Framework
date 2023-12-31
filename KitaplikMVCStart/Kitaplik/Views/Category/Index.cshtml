@@ -3,12 +3,13 @@
 }
 
 <h1 class="text-center mb-3">Kategoriler Sayfası</h1>
-<table class="table table-bordered table-dark table-hover w-75 m-auto">
-    <a asp-controller="Category" asp-action="Create" class="btn btn-success">Create A New Category </a>
+<a asp-controller="Category" asp-action="Create" class="btn btn-success mb-2">Create a New Category</a>
+<table class="table table-bordered table-primary table-striped table-hover w-100 m-auto">
     <thead>
         <tr>
-            <th>Category Name</th>
+            <th>CategoryName</th>
             <th>Category Display Order</th>
+            <th>Operation</th>
         </tr>
     </thead>
     <tbody>
@@ -16,8 +17,17 @@
         {
             <tr>
                 <td width="50%">@item.Name</td>
-                <td width="50%">@item.DisplayOrder</td>
+                <td width="30%">@item.DisplayOrder</td>
+                <td>
+                    <div class="btn-group">
+                        <a asp-controller="Category" asp-action="Edit" asp-route-id="@item.ID" class="btn btn-primary">Edit</a>
+                    </div>
+                    <div class="btn-group">
+                        <a asp-controller="Category" asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger">Delete</a>
+                    </div>
+                </td>
             </tr>
         }
     </tbody>
 </table>
+

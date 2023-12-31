@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Kitaplik.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231230102821_DateColumnBecomeNullableOnCategories")]
-    partial class DateColumnBecomeNullableOnCategories
+    [Migration("20231231071949_InitMig")]
+    partial class InitMig
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,7 +41,8 @@ namespace Kitaplik.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
 
                     b.HasKey("ID");
 
