@@ -30,9 +30,10 @@ namespace Library.Controllers
             {
                 _context.Categories.Add(obj);
                 _context.SaveChanges();
+                TempData["success"] = "Category created successfully";
                 return RedirectToAction("Index");
             }
-            return View();
+            return View(obj);
         }
     }
 }
