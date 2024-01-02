@@ -62,5 +62,14 @@ namespace Library.Controllers
             }
             return View(obj);
         }
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            var category = _context.Categories.Find(id);
+            _context.Categories.Remove(category);
+            _context.SaveChanges();
+            TempData["success"] = "Category deleted successfully";
+            return RedirectToAction("Index");
+        }
     }
 }
