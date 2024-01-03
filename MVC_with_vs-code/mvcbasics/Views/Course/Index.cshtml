@@ -1,62 +1,18 @@
 @model Course
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <title>Document</title>
-  </head>
-  <body>
-    <header>
-      <nav class="navbar navbar-dark navbar-expand-lg bg-primary">
+   
+      <main>
         <div class="container">
-          <a class="navbar-brand" href="#">502</a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Courses</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </header>
-    <main>
-      <div class="container">
-        <h1>Kurslar Ana sayfa</h1>
-        <div class="div" class="card mb-3">
-          <div class="row">
+          <h1>Kurslar Anasayfa</h1>
+        <div id="kurs_@Model.Id" class="card mb-3">
+          <div class="row p-4">
             <div class="col-md-4">
-              <img
-                src="~/img/@Model.Image"
-                width="200"
-                alt=""
-                class="img-fluid rounded-start"
-              />
+              <img src="~/img/@Model.Image" width="200" alt="" class="img-fluid rounded-start" />
             </div>
-            <div class="col-md-8 p-5">
-              <p class="card-title">@Model.Id</p>
-              <p class="card-title">@Model.Title</p>
-              <p class="card-title">@Model.Description</p>
+            <div class="col-md-8">
+              <h1 class="card-title">@Model.Title</h1>
+          <p class="card-text">@Model.Description</p>
             </div>
           </div>
         </div>
-      </div>
     </main>
-  </body>
-</html>
+
