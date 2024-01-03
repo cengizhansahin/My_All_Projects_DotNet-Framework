@@ -36,11 +36,27 @@
         </div>
       </nav>
     </header>
-    <div class="container">
-      <h1>Kurslar Ana sayfa</h1>
-      <p>@Model.Id</p>
-      <p>@Model.Title</p>
-      <p>@Model.Description</p>
-    </div>
+    <main>
+      <div class="container">
+        <h1>Kurslar Ana sayfa</h1>
+        <div class="div" class="card mb-3">
+          <div class="row">
+            <div class="col-md-4">
+              <img
+                src="~/img/@Model.Image"
+                width="200"
+                alt=""
+                class="img-fluid rounded-start"
+              />
+            </div>
+            <div class="col-md-8 p-5">
+              <p class="card-title">@Model.Id</p>
+              <p class="card-title">@Model.Title</p>
+              <p class="card-title">@Model.Description</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
   </body>
 </html>
