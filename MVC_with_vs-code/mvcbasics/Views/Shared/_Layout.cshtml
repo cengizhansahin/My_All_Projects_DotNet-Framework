@@ -1,20 +1,29 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <title>Document</title>
-    @RenderSection("Styles", false)
-  </head>
-  <body>
-    <header>
-      @await Html.PartialAsync("_Navbar") 
-      @RenderSection("Header", false)
-    </header>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+  <title>Document</title>
+  @RenderSection("Styles", false)
+</head>
+
+<body>
+  <header>
+    @await Html.PartialAsync("_Navbar")
+    @RenderSection("Header", false)
+  </header>
+  <main>
     <div class="container pb-3">
-      <main>@RenderBody()</main>
+      @RenderBody()
     </div>
-    @RenderSection("Scripts",false)
-  </body>
+  </main>
+  <footer>
+    @* @await Html.PartialAsync("_Footer") *@
+    @RenderSection("Footer", false)
+  </footer>
+  @RenderSection("Scripts", false)
+</body>
+
 </html>

@@ -1,4 +1,9 @@
 @model List<Course>
-  <h1>Kurslar Listesi</h1>
-  @foreach(var item in Model){ @await Html.PartialAsync("_Card",item) }
-</Course>
+<h1>Kurslar Listesi</h1>
+@foreach (var item in Model)
+{
+  @await Html.PartialAsync("_Card", item)
+}
+@section Footer {
+  @await Html.PartialAsync("_Footer")
+}
