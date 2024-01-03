@@ -9,7 +9,7 @@
   <body>
     <header>
         @await Html.PartialAsync("_Navbar") 
-        @RenderSection("Header")
+        @RenderSection("Header", false)
     </header>
     <div class="container pb-3">
       <main>@RenderBody()</main>
