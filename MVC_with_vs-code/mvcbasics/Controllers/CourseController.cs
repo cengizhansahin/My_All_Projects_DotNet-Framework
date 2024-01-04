@@ -44,5 +44,14 @@ namespace mvcbasics.Controllers
             };
             return View(kurslar);
         }
+        public IActionResult Details()
+        {
+            var kurs = new Course();
+            kurs.Id = 1;
+            kurs.Title = "AspNet Core 7.0";
+            kurs.Description = "Keyifli sardı";
+            kurs.Image = "1.png";
+            return View(kurs);
+        }
     }
 }

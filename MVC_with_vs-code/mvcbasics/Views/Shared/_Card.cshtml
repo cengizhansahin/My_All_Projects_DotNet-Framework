@@ -2,15 +2,12 @@
 <div id="kurs_@Model.Id" class="card mb-3">
   <div class="row p-4">
     <div class="col-md-4">
-      <img
-        src="~/img/@Model.Image"
-        width="200"
-        alt=""
-        class="img-fluid rounded-start"
-      />
+      <img src="~/img/@Model.Image" width="200" alt="" class="img-fluid rounded-start" />
     </div>
     <div class="col-md-8">
-      <h1 class="card-title">@Model.Title</h1>
+      <a asp-controller="Course" asp-action="Details" asp-route-id="@Model.Id">
+        <h1 class="card-title">@Model.Title</h1>
+      </a>
       <p class="card-text">@Model.Description</p>
     </div>
   </div>
