@@ -26,6 +26,11 @@ namespace mvcbasics.Controllers
         }
         public IActionResult Details(int id)
         {
+            if (id == null || id == 0)
+            {
+                return Redirect("/home/index");
+                //return RedirectToAction("List");
+            }
             var kurs = Repository.GetCourseById(id);
             return View(kurs);
         }
