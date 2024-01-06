@@ -1,3 +1,4 @@
+using MeetingApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MeetingApp.Controllers
@@ -14,17 +15,18 @@ namespace MeetingApp.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Apply(string Name,string Phone, string Email, bool WillAttend)
+        public IActionResult Apply(ApplyInfo applyInfo)
         {
-            Console.WriteLine(Name);
-            Console.WriteLine(Phone);
-            Console.WriteLine(Email);
-            Console.WriteLine(WillAttend);
-            return View();
+            Repository.applyInfos.Add(applyInfo);
+            // Console.WriteLine(applyInfo.Name);
+            // Console.WriteLine(applyInfo.Phone);
+            // Console.WriteLine(applyInfo.Email);
+            // Console.WriteLine(applyInfo.WillAttend);
+            return RedirectToAction("List");
         }
         public IActionResult List()
         {
-            return View();
+            return View(Repository.applyInfos);
         }
     }
 }

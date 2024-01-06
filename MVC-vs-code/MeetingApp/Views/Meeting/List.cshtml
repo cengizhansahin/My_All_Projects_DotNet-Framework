@@ -2,6 +2,9 @@
   ViewBag.Title="Katılımcı Listesi";
   
 }
+@model List<ApplyInfo>
+
+
 <h1>Toplantıya katılım listesi</h1>
 <table class="table table-bordered table-striped table-hover">
   <thead>
@@ -13,21 +16,13 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>Cengizhan Şahin</td>
-      <td>cengizxhan@gmail.com</td>
-      <td>Evet</td>
-      <td>
-        <a href="#" class="btn btn-sm btn-primary">Detay</a>
-      </td>
-    </tr>
-    <tr>
-      <td>Erkin Tekin</td>
-      <td>erkinxtekin@gmail.com</td>
-      <td>Evet</td>
-      <td>
-        <a href="#" class="btn btn-sm btn-primary">Detay</a>
-      </td>
-    </tr>
+    @foreach(var item in Model){
+      <tr>
+        <td>@item.Name</td>
+        <td>@item.Phone</td>
+        <td>@item.Email</td>
+        <td>@(item.WillAttend?"Evet":"Hayır")</td>
+      </tr>
+    }
   </tbody>
 </table>
