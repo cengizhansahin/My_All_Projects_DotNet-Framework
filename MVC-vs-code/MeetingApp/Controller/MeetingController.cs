@@ -17,7 +17,7 @@ namespace MeetingApp.Controllers
         [HttpPost]
         public IActionResult Apply(ApplyInfo applyInfo)
         {
-            Repository.applyInfos.Add(applyInfo);
+            Repository.Applies.Add(applyInfo);
             // Console.WriteLine(applyInfo.Name);
             // Console.WriteLine(applyInfo.Phone);
             // Console.WriteLine(applyInfo.Email);
@@ -26,7 +26,7 @@ namespace MeetingApp.Controllers
         }
         public IActionResult List()
         {
-            return View(Repository.applyInfos);
+            return View(Repository.Applies);
         }
     }
 }

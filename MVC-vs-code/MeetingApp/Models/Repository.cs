@@ -2,6 +2,6 @@ namespace MeetingApp.Models
 {
     public class Repository
     {
-        public static List<ApplyInfo> applyInfos { get; set; } = new List<ApplyInfo>();
+        public static List<ApplyInfo> Applies { get; set; } = new List<ApplyInfo>();
     };
 }
