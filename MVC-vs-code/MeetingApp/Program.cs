@@ -7,6 +7,7 @@ var app = builder.Build();
 //url/controller/action/id?
 // app.MapDefaultControllerRoute();
 // app.MapGet("/", () => "Hello World!");
+app.UseStaticFiles();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{Id?}"
