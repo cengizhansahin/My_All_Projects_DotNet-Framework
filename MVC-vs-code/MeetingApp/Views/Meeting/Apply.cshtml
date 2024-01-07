@@ -1,23 +1,25 @@
 @{
   ViewBag.Title="Katılım Formu";
 }
+@model ApplyInfo
+
 <h1>Toplantı Katılım Formu</h1>
 <form action="/Meeting/Apply" method="post">
   <div class="mb-3">
-    <label for="Name" class="form-label">Name</label>
-    <input type="text" name="applyInfo.Name" id="Name" class="form-control">
+    <label asp-for="Name" class="form-label">Name</label>
+    <input type="text" asp-for="Name" class="form-control">
   </div>
   <div class="mb-3">
-    <label for="Phone" class="form-label">Telefon</label>
-    <input type="text" name="applyInfo.Phone" id="Phone" class="form-control">
+    <label asp-for="Phone" class="form-label">Telefon</label>
+    <input type="text" asp-for="Phone" class="form-control">
   </div>
   <div class="mb-3">
-    <label for="Email" class="form-label">E-Posta</label>
-    <input type="text" name="applyInfo.Email" id="Email" class="form-control">
+    <label asp-for="Email" class="form-label">E-Posta</label>
+    <input type="text" asp-for="Email" class="form-control">
   </div>
   <div class="mb-3">
-    <label for="WillAttend" class="form-label">Katılım Durumu</label>
-    <select name="applyInfo.WillAttend" id="WillAttend" class="form-select">
+    <label asp-for="WillAttend" class="form-label">Katılım Durumu</label>
+    <select asp-for="WillAttend" class="form-select">
       <option value="true">Evet, katılıyorum</option>
       <option value="false">Hayır, katılıyorum</option>
     </select>
