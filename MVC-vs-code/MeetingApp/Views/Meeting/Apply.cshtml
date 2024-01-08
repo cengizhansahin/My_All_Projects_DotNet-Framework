@@ -7,21 +7,24 @@
 <form action="/Meeting/Apply" method="post">
   <div class="mb-3">
     <label asp-for="Name" class="form-label">Name</label>
-    <input type="text" asp-for="Name" class="form-control">
+    <input asp-for="Name" class="form-control">
+    <span asp-validation-for="Name" class="text-danger"></span>
   </div>
   <div class="mb-3">
     <label asp-for="Phone" class="form-label">Telefon</label>
-    <input type="text" asp-for="Phone" class="form-control">
+    <input asp-for="Phone" class="form-control">
+    <span asp-validation-for="Phone" class="text-danger"></span>
   </div>
   <div class="mb-3">
     <label asp-for="Email" class="form-label">E-Posta</label>
-    <input type="text" asp-for="Email" class="form-control">
+    <input asp-for="Email" class="form-control">
+    <span asp-validation-for="Email" class="text-danger"></span>
   </div>
   <div class="mb-3">
     <label asp-for="WillAttend" class="form-label">Katılım Durumu</label>
     <select asp-for="WillAttend" class="form-select">
       <option value="true">Evet, katılıyorum</option>
-      <option value="false">Hayır, katılıyorum</option>
+      <option value="false">Hayır, katılmıyorum</option>
     </select>
   </div>
   <button type="submit" class="btn btn-primary">Kaydet</button>

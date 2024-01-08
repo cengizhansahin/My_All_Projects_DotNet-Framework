@@ -17,12 +17,16 @@ namespace MeetingApp.Controllers
         [HttpPost]
         public IActionResult Apply(ApplyInfo applyInfo)
         {
-            Repository.Applies.Add(applyInfo);
+            if (ModelState.IsValid)
+            {
+                Repository.Applies.Add(applyInfo);
+                return RedirectToAction("List");
+            }
             // Console.WriteLine(applyInfo.Name);
             // Console.WriteLine(applyInfo.Phone);
             // Console.WriteLine(applyInfo.Email);
             // Console.WriteLine(applyInfo.WillAttend);
-            return RedirectToAction("List");
+            return View(applyInfo);
         }
         public IActionResult List()
         {
