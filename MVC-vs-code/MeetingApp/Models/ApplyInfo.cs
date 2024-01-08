@@ -9,6 +9,7 @@ namespace MeetingApp.Models
         [Required]
         public string Phone { get; set; }
         [Required]
+        [EmailAddress]
         public string Email { get; set; }
         public bool WillAttend { get; set; }
     }
