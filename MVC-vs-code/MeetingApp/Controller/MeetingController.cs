@@ -5,10 +5,7 @@ namespace MeetingApp.Controllers
 {
     public class MeetingController : Controller
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+
         [HttpGet]
         public IActionResult Apply()
         {
@@ -17,10 +14,11 @@ namespace MeetingApp.Controllers
         [HttpPost]
         public IActionResult Apply(ApplyInfo applyInfo)
         {
+            ViewBag.ApplyCount = Repository.Applies.Where(i => i.WillAttend == true).Count();
             if (ModelState.IsValid)
             {
-                Repository.Applies.Add(applyInfo);
-                return RedirectToAction("List");
+                Repository.CreateUser(applyInfo);
+                return View("Thanks", applyInfo);
             }
             // Console.WriteLine(applyInfo.Name);
             // Console.WriteLine(applyInfo.Phone);
@@ -31,6 +29,14 @@ namespace MeetingApp.Controllers
         public IActionResult List()
         {
             return View(Repository.Applies);
+        }
+        public IActionResult Thanks()
+        {
+            return View();
+        }
+        public IActionResult Details(int id)
+        {
+            return View(Repository.GetById(id));
         }
     }
 }
