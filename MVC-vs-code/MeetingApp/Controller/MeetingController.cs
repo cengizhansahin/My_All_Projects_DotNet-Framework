@@ -14,16 +14,13 @@ namespace MeetingApp.Controllers
         [HttpPost]
         public IActionResult Apply(ApplyInfo applyInfo)
         {
-            ViewBag.ApplyCount = Repository.Applies.Where(i => i.WillAttend == true).Count();
             if (ModelState.IsValid)
             {
                 Repository.CreateUser(applyInfo);
+                ViewBag.ApplyCount = Repository.Applies.Where(i => i.WillAttend == true).Count();
                 return View("Thanks", applyInfo);
             }
-            // Console.WriteLine(applyInfo.Name);
-            // Console.WriteLine(applyInfo.Phone);
-            // Console.WriteLine(applyInfo.Email);
-            // Console.WriteLine(applyInfo.WillAttend);
+
             return View(applyInfo);
         }
         public IActionResult List()

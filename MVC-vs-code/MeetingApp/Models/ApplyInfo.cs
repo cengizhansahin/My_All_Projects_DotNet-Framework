@@ -5,12 +5,12 @@ namespace MeetingApp.Models
     public class ApplyInfo
     {
         public int Id { get; set; }
-        [Required]
+        [Required(ErrorMessage ="Ad alanı zorunlu!")]
         public string Name { get; set; }
-        [Required]
+        [Required(ErrorMessage ="Telefon alanı zorunlu!")]
         public string Phone { get; set; }
-        [Required]
-        [EmailAddress]
+        [Required(ErrorMessage ="Email alanı zorunlu!")]
+        [EmailAddress(ErrorMessage ="Hatalı email")]
         public string Email { get; set; }
         public bool WillAttend { get; set; }
     }
