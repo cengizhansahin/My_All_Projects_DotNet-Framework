@@ -20,7 +20,7 @@ public class HomeController : Controller
             ViewBag.SearchString = searchString;
             products = products.Where(p => p.CategoryId == int.Parse(category)).ToList();
         }
-        ViewBag.Categories = new SelectList(Repository.Categories, "CategoryId", "Name");
+        ViewBag.Categories = new SelectList(Repository.Categories, "CategoryId", "Name", category);
 
         return View(products);
     }
