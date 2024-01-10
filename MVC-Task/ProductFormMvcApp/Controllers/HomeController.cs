@@ -7,7 +7,7 @@ namespace ProductFormMvcApp.Controllers;
 
 public class HomeController : Controller
 {
-    public IActionResult Index(string searchString)
+    public IActionResult Index(string searchString, string category)
     {
         var products = Repository.Products;
         if (!String.IsNullOrEmpty(searchString))
@@ -15,7 +15,13 @@ public class HomeController : Controller
             ViewBag.SearchString = searchString;
             products = products.Where(p => p.Name.ToLower().Trim().Contains(searchString)).ToList();
         }
-        ViewBag.Categories = new SelectList(Repository.Categories,"CategoryId","Name");
+        if (!String.IsNullOrEmpty(category) && category != "0")
+        {
+            ViewBag.SearchString = searchString;
+            products = products.Where(p => p.CategoryId == int.Parse(category)).ToList();
+        }
+        ViewBag.Categories = new SelectList(Repository.Categories, "CategoryId", "Name");
+
         return View(products);
     }
 
