@@ -11,7 +11,7 @@
   <div class="mb-3">
     <label asp-for="CategoryId" class="form-label">Ürün Kategorisi</label>
     <select asp-for="CategoryId" class="form-select">
-        if(ViewBag.CategoryList!=null || ViewBag.CategoryList!=""){
+        if(ViewBag.CategoryList!=null){
       @foreach(var category in ViewBag.CategoryList){
 
       <option value="@category.Id">@category.Name</option>
