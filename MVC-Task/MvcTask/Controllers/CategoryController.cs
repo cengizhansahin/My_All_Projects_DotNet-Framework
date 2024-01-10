@@ -15,6 +15,7 @@ namespace MvcTask.Controllers
         {
             return View(Repository.Categories);
         }
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
@@ -25,7 +26,6 @@ namespace MvcTask.Controllers
             Repository.CreateCategory(category);
             return RedirectToAction("Index");
         }
-
         public IActionResult Error()
         {
             return View("Error!");

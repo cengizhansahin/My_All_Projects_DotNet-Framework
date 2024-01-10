@@ -19,13 +19,13 @@ namespace MvcTask.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            ViewBag.CategoryList = Repository.Categories;
             return View();
         }
         [HttpPost]
         public IActionResult Create(Product product)
         {
             Repository.CreateProduct(product);
-            ViewBag.CategoryList = Repository.Categories;
             return RedirectToAction("Index");
         }
 
