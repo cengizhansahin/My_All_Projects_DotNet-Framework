@@ -7,6 +7,14 @@ namespace MvcTask.Models
 {
     public static class Repository
     {
+        static Repository()
+        {
+            Categories.Add(new Category()
+            {
+                Id = 1,
+                Name = "A kategorisi"
+            });
+        }
         public static List<Category> Categories { get; set; } = new List<Category>();
         public static List<Product> Products { get; set; } = new List<Product>();
         public static void CreateCategory(Category category)
