@@ -20,9 +20,26 @@ public class HomeController : Controller
             ViewBag.SearchString = searchString;
             products = products.Where(p => p.CategoryId == int.Parse(category)).ToList();
         }
-        ViewBag.Categories = new SelectList(Repository.Categories, "CategoryId", "Name", category);
+        // ViewBag.Categories = new SelectList(Repository.Categories, "CategoryId", "Name", category);
+        var model = new ProductViewModel
+        {
+            Products = products,
+            Categories = Repository.Categories,
+            SelectedCategory = category
+        };
 
         return View(products);
+    }
+
+    public IActionResult Create()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    public IActionResult Create(Product model)
+    {
+        return View();
     }
 
     public IActionResult Privacy()
