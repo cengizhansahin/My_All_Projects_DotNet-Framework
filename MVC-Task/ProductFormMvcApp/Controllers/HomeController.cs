@@ -11,6 +11,7 @@ public class HomeController : Controller
         var products = Repository.Products;
         if (!String.IsNullOrEmpty(searchString))
         {
+            ViewBag.SearchString = searchString;
             products = products.Where(p => p.Name.ToLower().Trim().Contains(searchString)).ToList();
         }
         return View(products);
