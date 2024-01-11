@@ -46,8 +46,12 @@ public class HomeController : Controller
     [HttpPost]
     public IActionResult Create(Product model)
     {
-        Repository.CreateProduct(model);
+        if(ModelState.IsValid)
+        {
+             Repository.CreateProduct(model);
         return RedirectToAction("Index");
+        }
+        return View(model);
     }
 
 
