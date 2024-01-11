@@ -8,17 +8,17 @@ namespace ProductFormMvcApp.Models
 {
     public class Product
     {
-        [Display(Name="Ürün Id")]
+        [Display(Name = "Ürün Id")]
         public int ProductId { get; set; }
-        [Display(Name="Ürün Adı")]
+        [Display(Name = "Ürün Adı")]
         public string Name { get; set; }
-        [Display(Name="Ürün Fiyatı")]
+        [Display(Name = "Ürün Fiyatı")]
         public double Price { get; set; }
-        [Display(Name="Ürün Resmi")]
+        [Display(Name = "Ürün Resmi")]
         public string Image { get; set; }
-        [Display(Name="Aktif Mi?")]
+        [Display(Name = "Aktif Mi?")]
         public bool IsActive { get; set; }
-        [Display(Name="Kategori")]
+        [Display(Name = "Kategori")]
         public int CategoryId { get; set; }
     }
 }
