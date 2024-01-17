@@ -1,44 +1,51 @@
-@model Product
-@{
-    ViewData["Title"] = "Edit";
+@model Product 
+@{ 
+    ViewData["Title"] = "Edit"; 
 }
 
-
-<form asp-action="Edit" asp-controller="Home" method="post" enctype="multipart/form-data">
-    <div asp-validation-summary="All"></div>
-    <input type="hidden" asp-for="ProductId">
-    <div class="mb-3">
-        <label asp-for="Name" class="form-label"></label>
-        <input asp-for="Name" name="Name" class="form-control">
-        <span asp-validation-for="Name" ></span>
-    </div>
-    <div class="mb-3">
-        <label asp-for="Price" class="form-label"></label>
-        <input asp-for="Price" name="Price"  class="form-control">
-        <span asp-validation-for="Price" ></span>
-    </div>
-    <div class="input-group mb-3">
-        <!-- <label asp-for="Image" class="form-label"></label>
+<form
+  asp-action="Edit"
+  asp-controller="Home"
+  method="post"
+  enctype="multipart/form-data"
+>
+  <div asp-validation-summary="All"></div>
+  <input type="hidden" asp-for="ProductId" />
+  <div class="mb-3">
+    <label asp-for="Name" class="form-label"></label>
+    <input asp-for="Name" class="form-control" />
+    <span asp-validation-for="Name"></span>
+  </div>
+  <div class="mb-3">
+    <label asp-for="Price" class="form-label"></label>
+    <input asp-for="Price" class="form-control" />
+    <span asp-validation-for="Price"></span>
+  </div>
+  <div class="input-group mb-3">
+    <!-- <label asp-for="Image" class="form-label"></label>
         <input asp-for="Image" name="Image"  class="form-control">
         <span asp-validation-for="Image" ></span> -->
-            <input type="file" name="imageFile" id="imageFile" class="form-control">
-    </div>
-    <div>
-        <img src="~/img/@Model.Image" style="width:100px" alt="">
-        <input type="hidden" asp-for="@Model.Image">
-    </div>
-    <div class="mb-3">
-        <label asp-for="CategoryId" class="form-label"></label>
-        <select asp-for="CategoryId" asp-items="ViewBag.Categories" class="form-select">
-           
-            <option value="0">Hepsi</option>
-        </select>
-        <span asp-validation-for="CategoryId" ></span>
-    </div>
-    <div class="mb-3">
-        <input asp-for="IsActive"  class="form-check-input">
-        <label asp-for="IsActive" class="form-check-label"></label>
-        <span asp-validation-for="IsActive" ></span>
-    </div>
-    <button type="submit" class="btn btn-primary">Kaydet</button>
+    <input type="file" name="imageFile" id="imageFile" class="form-control" />
+  </div>
+  <div>
+    <img src="~/img/@Model.Image" style="width: 100px" alt="" />
+    <input type="hidden" asp-for="@Model.Image" />
+  </div>
+  <div class="mb-3">
+    <label asp-for="CategoryId" class="form-label"></label>
+    <select
+      asp-for="CategoryId"
+      asp-items="ViewBag.Categories"
+      class="form-select"
+    >
+      <option value="0">Hepsi</option>
+    </select>
+    <span asp-validation-for="CategoryId"></span>
+  </div>
+  <div class="mb-3">
+    <input asp-for="IsActive" class="form-check-input" />
+    <label asp-for="IsActive" class="form-check-label"></label>
+    <span asp-validation-for="IsActive"></span>
+  </div>
+  <button type="submit" class="btn btn-primary">Kaydet</button>
 </form>
