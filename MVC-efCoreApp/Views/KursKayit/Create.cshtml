@@ -1,5 +1,4 @@
 @model KursKayit
-
 @{
     ViewData["Title"] = "Kurs Kayıt Ekle";
 }
@@ -7,16 +6,17 @@
 <hr>
 <form asp-action="Create" asp-controller="KursKayit"  method="post">
     <div class="mb-3">
-        <label asp-for="OgrenciId" class="form-label">Öğrenci Adı</label>
+        <label asp-for="OgrenciId" class="form-label">Öğrenci</label>
         <select asp-for="OgrenciId" asp-items="ViewBag.Ogrenciler" class="form-control">
             <option value="">Seçiniz</option>
         </select>
     </div>
     <div class="mb-3">
-        <label asp-for="KursId" class="form-label">Kurs Adı</label>
+        <label asp-for="KursId" class="form-label">Kurs</label>
         <select asp-for="KursId" asp-items="ViewBag.Kurslar" class="form-control">
             <option value="">Seçiniz</option>
         </select>
     </div>
+
     <button type="submit" class="btn btn-secondary">Kaydet</button>
 </form>
