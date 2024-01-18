@@ -46,15 +46,45 @@ namespace MVC_efCoreApp.Controllers
         }
         public async Task<IActionResult> Edit(int id)
         {
+            if (id == null)
+            {
+                return NotFound();
+            }
             var updateOgrenci = await _context.Ogrenciler.FirstOrDefaultAsync(p => p.OgrenciId == id);
+            if (updateOgrenci == null)
+            {
+                return NotFound();
+            }
             return View(updateOgrenci);
         }
         [HttpPost]
-        public async Task<IActionResult> Edit(Ogrenci obj)
+        public async Task<IActionResult> Edit(Ogrenci obj, int id)
         {
-            _context.Ogrenciler.Update(obj);
-            await _context.SaveChangesAsync();
-            return RedirectToAction("Index");
+            if (id != obj.OgrenciId)
+            {
+                return NotFound();
+            }
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Ogrenciler.Update(obj);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!_context.Ogrenciler.Any(x => x.OgrenciId == obj.OgrenciId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction("Index");
+            }
+            return View(obj);
         }
     }
 }
