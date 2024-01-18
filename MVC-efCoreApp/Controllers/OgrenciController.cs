@@ -37,9 +37,28 @@ namespace MVC_efCoreApp.Controllers
             var ogrenciler = await _context.Ogrenciler.ToListAsync();
             return View(ogrenciler);
         }
+
         public async Task<IActionResult> Delete(int id)
         {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var updateOgrenci = await _context.Ogrenciler.FirstOrDefaultAsync(p => p.OgrenciId == id);
+            if (updateOgrenci == null)
+            {
+                return NotFound();
+            }
+            return View(updateOgrenci);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Deletex([FromForm] int id)
+        {
             var deleteOgrneci = await _context.Ogrenciler.FirstOrDefaultAsync(p => p.OgrenciId == id);
+            if (deleteOgrneci == null)
+            {
+                return NotFound();
+            }
             _context.Ogrenciler.Remove(deleteOgrneci);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
@@ -58,6 +77,7 @@ namespace MVC_efCoreApp.Controllers
             return View(updateOgrenci);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Ogrenci obj, int id)
         {
             if (id != obj.OgrenciId)
