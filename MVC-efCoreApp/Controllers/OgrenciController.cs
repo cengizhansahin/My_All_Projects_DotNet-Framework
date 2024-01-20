@@ -86,8 +86,6 @@ namespace MVC_efCoreApp.Controllers
             {
                 return NotFound();
             }
-            if (ModelState.IsValid)
-            {
                 try
                 {
                     _context.Ogrenciler.Update(obj);
@@ -105,8 +103,6 @@ namespace MVC_efCoreApp.Controllers
                     }
                 }
                 return RedirectToAction("Index");
-            }
-            return View(obj);
         }
     }
 }

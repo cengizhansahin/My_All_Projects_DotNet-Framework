@@ -33,10 +33,13 @@
         <h4>Kurslar</h4>
         <hr>
         <ul>
-            @foreach(var item in @Model.KursKayitlari)
-            {
-                <li>@item.Kurs.Baslik</li>
-            }
+            @if(Model.KursKayitlari!=null)
+                {
+                    @foreach(var item in Model.KursKayitlari)
+                        {
+                            <li>@item.Kurs.Baslik</li>
+                        }
+                }
         </ul>
     </div>
 </div>
