@@ -4,9 +4,11 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using MVC_efCoreApp.DATA;
+using MVC_efCoreApp.Models;
 
 namespace MVC_efCoreApp.Controllers
 {
@@ -20,24 +22,31 @@ namespace MVC_efCoreApp.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var kurslar = await _context.Kurslar.ToListAsync();
+
+            var kurslar = await _context.Kurslar
+                        .Include(o => o.Ogretmen).ToListAsync();
             return View(kurslar);
         }
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            ViewBag.Ogretmenler = new SelectList(await _context.Ogretmenler.ToListAsync(), "OgretmenId", "AdSoyad");
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Kurs kurs)
+        public async Task<IActionResult> Create(KursViewModel model)
         {
-            if (ModelState.IsValid)
+            if(ModelState.IsValid)
             {
-                _context.Kurslar.Add(kurs);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Index");
+                var kurs = new Kurs();
+                kurs.Baslik = model.Baslik;
+                kurs.OgretmenId = model.OgretmenId;
+                kurs.KursKayitlari = model.KursKayitlari;
+            _context.Kurslar.Add(kurs);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
             }
-            return View(kurs);
+            return View(model);
         }
         public async Task<IActionResult> Edit(int id)
         {
@@ -52,11 +61,12 @@ namespace MVC_efCoreApp.Controllers
             {
                 return NotFound();
             }
+            ViewBag.Ogretmenler = new SelectList(await _context.Ogretmenler.ToListAsync(), "OgretmenId", "AdSoyad");
             return View(kurs);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Kurs obj, int id)
+        public async Task<IActionResult> Edit(KursViewModel obj, int id)
         {
             if (id != obj.KursId)
             {
@@ -66,7 +76,12 @@ namespace MVC_efCoreApp.Controllers
             {
                 try
                 {
-                    _context.Kurslar.Update(obj);
+                    _context.Update(new Kurs()
+                    {
+                        KursId = obj.KursId,
+                        Baslik = obj.Baslik,
+                        OgretmenId = obj.OgretmenId
+                    });
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
