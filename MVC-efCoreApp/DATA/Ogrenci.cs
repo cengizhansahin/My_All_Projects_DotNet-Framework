@@ -22,6 +22,6 @@ namespace MVC_efCoreApp.DATA
         }
         public string? Eposta { get; set; }
         public string? Telefon { get; set; }
-        public int MyProperty { get; set; }
+        public ICollection<KursKayit> KursKayitlari { get; set; }
     }
 }

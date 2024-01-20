@@ -22,8 +22,12 @@ namespace MVC_efCoreApp.Controllers
         }
         public async Task<IActionResult> Index()
         {
-
-            return View();
+            var KursKayitlari = await _context
+                                .KursKayitlari
+                                .Include(x => x.Ogrenci)
+                                .Include(x => x.Kurs)
+                                .ToListAsync();
+            return View(KursKayitlari);
         }
         public async Task<IActionResult> Create()
         {

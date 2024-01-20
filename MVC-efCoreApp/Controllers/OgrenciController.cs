@@ -69,7 +69,9 @@ namespace MVC_efCoreApp.Controllers
             {
                 return NotFound();
             }
-            var updateOgrenci = await _context.Ogrenciler.FirstOrDefaultAsync(p => p.OgrenciId == id);
+            var updateOgrenci = await _context.Ogrenciler.
+                                Include(o => o.KursKayitlari)
+                                .ThenInclude(o => o.Kurs).FirstOrDefaultAsync(p => p.OgrenciId == id);
             if (updateOgrenci == null)
             {
                 return NotFound();
