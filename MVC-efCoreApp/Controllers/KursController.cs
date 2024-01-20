@@ -36,15 +36,15 @@ namespace MVC_efCoreApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(KursViewModel model)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 var kurs = new Kurs();
                 kurs.Baslik = model.Baslik;
                 kurs.OgretmenId = model.OgretmenId;
                 kurs.KursKayitlari = model.KursKayitlari;
-            _context.Kurslar.Add(kurs);
-            await _context.SaveChangesAsync();
-            return RedirectToAction("Index");
+                _context.Kurslar.Add(kurs);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
             }
             return View(model);
         }
@@ -61,14 +61,21 @@ namespace MVC_efCoreApp.Controllers
             {
                 return NotFound();
             }
+            var model = new KursViewModel
+            {
+                KursId = kurs.KursId,
+                Baslik = kurs.Baslik,
+                OgretmenId = kurs.OgretmenId,
+                KursKayitlari = kurs.KursKayitlari
+            };
             ViewBag.Ogretmenler = new SelectList(await _context.Ogretmenler.ToListAsync(), "OgretmenId", "AdSoyad");
-            return View(kurs);
+            return View(model);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(KursViewModel obj, int id)
+        public async Task<IActionResult> Edit(KursViewModel model, int id)
         {
-            if (id != obj.KursId)
+            if (id != model.KursId)
             {
                 return NotFound();
             }
@@ -78,15 +85,16 @@ namespace MVC_efCoreApp.Controllers
                 {
                     _context.Update(new Kurs()
                     {
-                        KursId = obj.KursId,
-                        Baslik = obj.Baslik,
-                        OgretmenId = obj.OgretmenId
+                        KursId = model.KursId,
+                        Baslik = model.Baslik,
+                        OgretmenId = model.OgretmenId,
+                        KursKayitlari = model.KursKayitlari,
                     });
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!_context.Ogrenciler.Any(x => x.OgrenciId == obj.KursId))
+                    if (!_context.Ogrenciler.Any(x => x.OgrenciId == model.KursId))
                     {
                         return NotFound();
                     }
@@ -97,7 +105,7 @@ namespace MVC_efCoreApp.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            return View(obj);
+            return View(model);
         }
         public async Task<IActionResult> Delete(int id)
         {
