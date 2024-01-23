@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using BlogApp.Data.Abstract;
 using BlogApp.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace BlogApp.Controllers
@@ -20,13 +21,27 @@ namespace BlogApp.Controllers
             _postRepository = postRepository;
             _tagRepository = tagRepository;
         }
-        public IActionResult Index()
+        public IActionResult Index(string tag)
         {
-            return View(new PostViewModel
+            var posts = _postRepository.Posts;
+            if (!string.IsNullOrEmpty(tag))
             {
-                Posts = _postRepository.Posts.ToList(),
-                Tags = _tagRepository.Tags.ToList()
-            });
+                posts = posts.Where(x => x.Tags.Any(t => t.Url == tag));
+                return View(posts.ToList());
+            }
+            else
+            {
+                // new PostViewModel
+                // {
+                //     Posts = await _postRepository.Posts.ToListAsync(),
+                //     // Tags = _tagRepository.Tags.ToList()
+                // };
+                return View(posts.ToList());
+            }
+        }
+        public async Task<IActionResult> Details(string? url)
+        {
+            return View(await _postRepository.Posts.FirstOrDefaultAsync(x => x.Url == url));
         }
     }
 }
