@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using BlogApp.Data.Abstract;
 using BlogApp.Entity;
@@ -26,6 +27,7 @@ namespace BlogApp.Controllers
         }
         public IActionResult Index(string tag)
         {
+            var claims = User.Claims;
             var posts = _postRepository.Posts;
             if (!string.IsNullOrEmpty(tag))
             {
@@ -52,26 +54,25 @@ namespace BlogApp.Controllers
             .FirstOrDefaultAsync(x => x.Url == url));
         }
         [HttpPost]
-        public JsonResult AddComment(int PostId, string UserName, string Text)
+        public JsonResult AddComment(int PostId, string Text)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); 
+            var username = User.FindFirstValue(ClaimTypes.Name); 
+            var avatar = User.FindFirstValue(ClaimTypes.UserData); 
             var entity = new Comment
             {
                 Text = Text,
                 PublishedOn = DateTime.Now,
                 PostId = PostId,
-                User = new User
-                {
-                    UserName = UserName,
-                    Image = "avatar.jpg"
-                }
+                UserId = int.Parse(userId??"")
             };
             _commentRepository.CreateComment(entity);
             return Json(new
             {
-                UserName,
+                username,
                 Text,
                 entity.PublishedOn,
-                entity.User.Image
+                avatar
             });
         }
     }
