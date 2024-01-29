@@ -12,7 +12,7 @@ namespace BlogApp.Data.Concrete.EfCore
             _context = context;
         }
 
-        IQueryable<T> IRepository<T>.List => _context.Set<T>();
+        IQueryable<T> IRepository<T>.List => _context.Set<T>().AsQueryable();
 
         public async Task Create(T p)
         {
