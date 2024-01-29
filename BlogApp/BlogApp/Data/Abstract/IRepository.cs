@@ -6,9 +6,9 @@ using BlogApp.Entity;
 
 namespace BlogApp.Data.Abstract
 {
-    public interface ICommentRepository
+    public interface IRepository<T> where T : class
     {
-        IQueryable<Comment> Comments { get; }
-        void CreateComment(Comment comment);
+        IQueryable<T> List { get; }
+        Task Create(T p);
     }
 }

@@ -1,6 +1,7 @@
 using BlogApp;
 using BlogApp.Data.Abstract;
 using BlogApp.Data.Concrete.EfCore;
+using BlogApp.Entity;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,10 +16,11 @@ builder.Services.AddDbContext<BlogContext>(options =>
     options.UseSqlite(connectionString);
 });
 
-builder.Services.AddScoped<IPostRepository, EfPostRepository>();
-builder.Services.AddScoped<ITagRepository, EfTagRepository>();
-builder.Services.AddScoped<ICommentRepository, EfCommentRepository>();
-builder.Services.AddScoped<IUserRepository, EfUserRepository>();
+builder.Services.AddScoped<IRepository<Post>, EfRepository<Post>>();
+builder.Services.AddScoped<IRepository<Tag>, EfRepository<Tag>>();
+builder.Services.AddScoped<IRepository<User>, EfRepository<User>>();
+builder.Services.AddScoped<IRepository<Comment>, EfRepository<Comment>>();
+
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
 
@@ -29,9 +31,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 SeedData.TestVerileriniDoldur(app);
 
-
-// app.MapGet("/", () => "Hello World!");
-// app.MapDefaultControllerRoute();
 app.MapControllerRoute(
     name: "post_details",
     pattern: "posts/details/{url}",

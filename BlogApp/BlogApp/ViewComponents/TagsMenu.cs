@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BlogApp.Data.Abstract;
+using BlogApp.Entity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -11,15 +12,15 @@ namespace BlogApp.ViewComponents
 {
     public class TagsMenu : ViewComponent
     {
-        private readonly ITagRepository _tagRepository;
-        public TagsMenu(ITagRepository tagRepository)
+        private readonly IRepository<Tag> _tagRepository;
+        public TagsMenu(IRepository<Tag> tagRepository)
         {
             _tagRepository = tagRepository;
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            return View(await _tagRepository.Tags.ToListAsync());
+            return View(await _tagRepository.List.ToListAsync());
         }
     }
 }

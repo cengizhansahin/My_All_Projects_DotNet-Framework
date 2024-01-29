@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using BlogApp.Data.Abstract;
+using BlogApp.Entity;
 using BlogApp.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -15,39 +16,39 @@ using Microsoft.Extensions.Logging;
 namespace BlogApp.Controllers
 {
 
-   
+
     public class UsersController : Controller
     {
-        private readonly IUserRepository _userRepository;
-        public UsersController(IUserRepository userRepository)
+        private readonly IRepository<User> _userRepository;
+        public UsersController(IRepository<User> userRepository)
         {
             _userRepository = userRepository;
-            
+
         }
 
-         public async Task<IActionResult>Login()
+        public async Task<IActionResult> Login()
         {
-            if(User.Identity!.IsAuthenticated)
+            if (User.Identity!.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Posts");
             }
             return View();
         }
 
-        public async Task<IActionResult>Logout()
+        public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Login");
         }
-       
-       [HttpPost]
+
+        [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                var isUser = _userRepository.Users.FirstOrDefault(u => u.Email == model.Email && u.Password == model.Password);
+                var isUser = _userRepository.List.FirstOrDefault(u => u.Email == model.Email && u.Password == model.Password);
 
-                if(isUser != null)
+                if (isUser != null)
                 {
                     var userClaims = new List<Claim>();
 
@@ -56,14 +57,15 @@ namespace BlogApp.Controllers
                     userClaims.Add(new Claim(ClaimTypes.GivenName, isUser.Name ?? ""));
                     userClaims.Add(new Claim(ClaimTypes.UserData, isUser.Image ?? ""));
 
-                    if(isUser.Email == "bciga@gmail.com")
+                    if (isUser.Email == "bciga@gmail.com")
                     {
                         userClaims.Add(new Claim(ClaimTypes.Role, "admin"));
                     }
 
                     var claimsIdentity = new ClaimsIdentity(userClaims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-                    var authProperties = new AuthenticationProperties{
+                    var authProperties = new AuthenticationProperties
+                    {
                         IsPersistent = true
                     };
 
@@ -76,7 +78,7 @@ namespace BlogApp.Controllers
                     );
 
                     return RedirectToAction("Index", "Posts");
-                    
+
                 }
             }
             else
@@ -86,21 +88,22 @@ namespace BlogApp.Controllers
             return View(model);
         }
 
-    public IActionResult Register()
-    {
-        return View();
-    }
-
-    [HttpPost]
-     public async Task<IActionResult> Register(RegisterViewModel model)
-    {
-        
-        if(ModelState.IsValid)
+        public IActionResult Register()
         {
-            var user = await _userRepository.Users.FirstOrDefaultAsync(x => x.UserName == model.UserName || x.Email == model.Email);
-                if(user == null)
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterViewModel model)
+        {
+
+            if (ModelState.IsValid)
+            {
+                var user = await _userRepository.List.FirstOrDefaultAsync(x => x.UserName == model.UserName || x.Email == model.Email);
+                if (user == null)
                 {
-                    _userRepository.CreateUser(new Entity.User {
+                    _userRepository.Create(new Entity.User
+                    {
                         UserName = model.UserName,
                         Name = model.Name,
                         Email = model.Email,
@@ -109,14 +112,15 @@ namespace BlogApp.Controllers
                     });
                     return RedirectToAction("Login");
                 }
-                else{
+                else
+                {
 
-                
-                ModelState.AddModelError("", "Username ya da Email kullanımdadır.");
+
+                    ModelState.AddModelError("", "Username ya da Email kullanımdadır.");
                 }
             }
-        return View(model);
-    }
-       
+            return View(model);
+        }
+
     }
 }

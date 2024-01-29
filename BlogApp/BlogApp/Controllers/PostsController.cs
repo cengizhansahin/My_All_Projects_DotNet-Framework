@@ -15,11 +15,11 @@ namespace BlogApp.Controllers
 {
     public class PostsController : Controller
     {
-        private readonly IPostRepository _postRepository;
-        private readonly ITagRepository _tagRepository;
-        private readonly ICommentRepository _commentRepository;
+        private readonly IRepository<Post> _postRepository;
+        private readonly IRepository<Tag> _tagRepository;
+        private readonly IRepository<Comment> _commentRepository;
 
-        public PostsController(IPostRepository postRepository, ITagRepository tagRepository, ICommentRepository commentRepository)
+        public PostsController(IRepository<Post> postRepository, IRepository<Tag> tagRepository, IRepository<Comment> commentRepository)
         {
             _postRepository = postRepository;
             _tagRepository = tagRepository;
@@ -28,7 +28,7 @@ namespace BlogApp.Controllers
         public IActionResult Index(string tag)
         {
             var claims = User.Claims;
-            var posts = _postRepository.Posts;
+            var posts = _postRepository.List;
             if (!string.IsNullOrEmpty(tag))
             {
                 posts = posts.Where(x => x.Tags.Any(t => t.Url == tag));
@@ -47,7 +47,7 @@ namespace BlogApp.Controllers
         public async Task<IActionResult> Details(string? url)
         {
             return View(await _postRepository
-            .Posts
+            .List
             .Include(x => x.Tags)
             .Include(x => x.Comments)
             .ThenInclude(x => x.User)
@@ -56,17 +56,17 @@ namespace BlogApp.Controllers
         [HttpPost]
         public JsonResult AddComment(int PostId, string Text)
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); 
-            var username = User.FindFirstValue(ClaimTypes.Name); 
-            var avatar = User.FindFirstValue(ClaimTypes.UserData); 
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var username = User.FindFirstValue(ClaimTypes.Name);
+            var avatar = User.FindFirstValue(ClaimTypes.UserData);
             var entity = new Comment
             {
                 Text = Text,
                 PublishedOn = DateTime.Now,
                 PostId = PostId,
-                UserId = int.Parse(userId??"")
+                UserId = int.Parse(userId ?? "")
             };
-            _commentRepository.CreateComment(entity);
+            _commentRepository.Create(entity);
             return Json(new
             {
                 username,
